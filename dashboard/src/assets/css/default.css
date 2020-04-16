@@ -1,3 +1,15 @@
+/*
+ * Default Theme
+ */
+
 p {
     font-size: 20px;
+}
+
+.green {
+    color: #2dc12d;
+}
+
+.red {
+    color: #a82121;
 }
