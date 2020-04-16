@@ -1,14 +1,14 @@
 {
-  "name": "dashboard",
-  "description": "Futuristic chrome dashboard",
-  "version": null,
+  "name": "Silicon Dashboard",
+  "description": "Futuristic Chrome dashboard, productivity tool, and virtual assistant",
+  "version": 0.1,
   "manifest_version": 2,
   "icons": {
     "48": "icons/icon_48.png",
     "128": "icons/icon_128.png"
   },
   "browser_action": {
-    "default_title": "dashboard",
+    "default_title": "Silicon Dashboard",
     "default_popup": "popup/popup.html"
   },
   "background": {
@@ -19,5 +19,8 @@
   "options_ui": {
     "page": "options/options.html",
     "chrome_style": true
+  },
+  "chrome_url_overrides": {
+    "newtab": "tab/tab.html"
   }
 }

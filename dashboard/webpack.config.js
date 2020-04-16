@@ -13,6 +13,7 @@ const config = {
     'background': './background.js',
     'popup/popup': './popup/popup.js',
     'options/options': './options/options.js',
+    'tab/tab': './tab/tab.js'
   },
   output: {
     path: __dirname + '/dist',
@@ -74,8 +75,10 @@ const config = {
     }),
     new CopyPlugin([
       { from: 'icons', to: 'icons', ignore: ['icon.xcf'] },
+      { from: 'assets', to: 'assets', ignore: [] },
       { from: 'popup/popup.html', to: 'popup/popup.html', transform: transformHtml },
       { from: 'options/options.html', to: 'options/options.html', transform: transformHtml },
+      { from: 'tab/tab.html', to: 'tab/tab.html', transform: transformHtml },
       {
         from: 'manifest.json',
         to: 'manifest.json',
