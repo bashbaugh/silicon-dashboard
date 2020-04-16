@@ -1,17 +1,13 @@
 <template>
   <div>
-    <p>Hi. Welcome to your new tab page</p>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    data () {
+      return {}
+    }
+  }
 </script>
-
-<style scoped>
-/*p {*/
-/*  font-size: 40px;*/
-/*}*/
-</style>

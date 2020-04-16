@@ -49,9 +49,9 @@ const config = {
         test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]',
-          outputPath: '/images/',
-          emitFile: false,
+          name: '[path][name].[ext]',
+          // outputPath: '/assets/images/',
+          emitFile: false
         },
       },
       {
