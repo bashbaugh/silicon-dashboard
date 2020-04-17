@@ -2,34 +2,40 @@
   <div class="bar">
     <div v-if="title" class="title">\\ {{ title }}</div>
     <div v-else class="title">\\ SILICON: DASHBOARD</div>
-    <template v-if="status">
-      <div class="function-button">\\ <span class="key">{{ controlKey }}</span> {{ status }} //</div>
+    <template v-if="$route.name === 'login'">
+      <div class="function-button"><span class="key">⏎</span> SUBMIT</div>
+      <div class="function-button"><span class="key">ESC</span> RESTART</div>
     </template>
     <template v-else-if="$store.state.loggedIn">
+      <GlobalEvents @keyup.l="$store.dispatch('logOut')" />
       <div class="function-button"><span class="key">O</span>PEN PROJECT</div>
       <div class="function-button"><span class="key">S</span>ETTINGS</div>
-      <div class="function-button" v-if="$store.state.loggedIn"><span class="key">L</span>OG OUT</div>
+      <div class="function-button"><span class="key">L</span>OG OUT</div>
     </template>
     <template v-else>
       <div class="function-button">\\ VERIFYING //</div>
     </template>
-    <div class="user"><span :class="[$store.state.loggedIn ? 'green' : 'red']">{{ $store.state.loggedIn ? 'CURRENT_USER' : 'USER_LOGGED_OUT' }}</span> <span class="username" v-if="$store.state.loggedIn">{{ $store.state.userData.username }}</span></div>
+    <div class="user">
+      <span :class="[$store.state.loggedIn ? 'green' : 'red']">{{ $store.state.loggedIn ? 'CURRENT_USER:' : 'USER_LOGGED_OUT' }}</span>
+      <span class="username" v-if="$store.state.loggedIn">{{ $store.state.userData ? $store.state.userData.name : 'Anonymous' }}</span>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'TopBar',
-    data () {
-      return {
-      }
-    },
-    props: {
-      title: String,
-      status: String,
-      controlKey: String
+
+export default {
+  name: 'TopBar',
+  components: {
+  },
+  data () {
+    return {
     }
+  },
+  props: {
+    title: String
   }
+}
 </script>
 
 <style>
