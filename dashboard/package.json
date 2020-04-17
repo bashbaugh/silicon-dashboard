@@ -20,6 +20,7 @@
     "firebase": "^7.14.1",
     "tailwindcss": "^1.2.0",
     "vue": "^2.6.10",
+    "vue-global-events": "^1.1.2",
     "vue-router": "^3.0.1",
     "vue-typed-js": "^0.1.2",
     "vuex": "^3.1.3"
