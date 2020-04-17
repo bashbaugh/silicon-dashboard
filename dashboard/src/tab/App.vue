@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view></router-view>
+    <router-view @playSound="playSound"></router-view>
   </div>
 </template>
 
@@ -17,15 +17,20 @@ export default {
     return {}
   },
   mounted() {
-
+    // Create auth listener to update app on sign in/out
     fireAuth().onAuthStateChanged((user) => {
       if (user) {
-        this.$store.dispatch('setUser', { user })
+        // this.$store.dispatch('setUser', { user })
       } else {
         this.$store.dispatch('logOut')
         if (this.$route.name !== 'login') this.$router.replace('/login')
       }
     })
+  },
+  methods: {
+    playSound() {
+
+    }
   }
 }
 </script>

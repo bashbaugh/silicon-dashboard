@@ -15,6 +15,8 @@ div.center {
   font-family: 'Orbitron', sans-serif;
   font-weight: 800;
   font-size: 2.2em;
+  cursor: default;
+  user-select: none;
   /*text-decoration: underline;*/
 }
 
@@ -24,6 +26,8 @@ div.center {
 }
 
 .large-input-status {
+  cursor: default;
+  user-select: none;
   font-family: 'Raleway', sans-serif;
   font-size: 1.2em;
   font-weight: 600;

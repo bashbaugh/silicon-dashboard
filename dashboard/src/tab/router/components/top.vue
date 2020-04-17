@@ -47,6 +47,8 @@ export default {
     right: 0;
     padding: 15px;
     border-bottom: 1px solid black;
+    cursor: default;
+    user-select: none;
   }
   .bar > div {
     width: 100%;
