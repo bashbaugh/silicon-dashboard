@@ -1,15 +1,19 @@
 <template>
   <div class="bar">
-    <div class="title">\\ SILICON: DASHBOARD</div>
-    <template v-if="loggedIn">
+    <div v-if="title" class="title">\\ {{ title }}</div>
+    <div v-else class="title">\\ SILICON: DASHBOARD</div>
+    <template v-if="status">
+      <div class="function-button">\\ <span class="key">{{ controlKey }}</span> {{ status }} //</div>
+    </template>
+    <template v-else-if="$store.state.loggedIn">
       <div class="function-button"><span class="key">O</span>PEN PROJECT</div>
       <div class="function-button"><span class="key">S</span>ETTINGS</div>
-      <div class="function-button" v-if="loggedIn"><span class="key">L</span>OG OUT</div>
+      <div class="function-button" v-if="$store.state.loggedIn"><span class="key">L</span>OG OUT</div>
     </template>
     <template v-else>
-      <div class="function-button">\\ AUTHORIZATION //</div>
+      <div class="function-button">\\ VERIFYING //</div>
     </template>
-    <div class="user"><span :class="[loggedIn ? 'green' : 'red']">{{ loggedIn ? 'CURRENT_USER' : 'USER_LOGGED_OUT' }}</span> <span class="username" v-if="loggedIn">User</span></div>
+    <div class="user"><span :class="[$store.state.loggedIn ? 'green' : 'red']">{{ $store.state.loggedIn ? 'CURRENT_USER' : 'USER_LOGGED_OUT' }}</span> <span class="username" v-if="$store.state.loggedIn">{{ $store.state.userData.username }}</span></div>
   </div>
 </template>
 
@@ -18,8 +22,12 @@
     name: 'TopBar',
     data () {
       return {
-        loggedIn: null
       }
+    },
+    props: {
+      title: String,
+      status: String,
+      controlKey: String
     }
   }
 </script>

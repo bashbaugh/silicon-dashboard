@@ -1,7 +1,7 @@
 {
   "name": "dashboard",
   "version": "1.0.0",
-  "description": "Futuristic chrome dashboard",
+  "description": "Futuristic Chrome dashboard and project management",
   "author": "Benjamin Ashbaugh <scitronboy@gmail.com>",
   "license": "MIT",
   "engines": {
@@ -21,6 +21,7 @@
     "tailwindcss": "^1.2.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.1",
+    "vue-typed-js": "^0.1.2",
     "vuex": "^3.1.3"
   },
   "devDependencies": {

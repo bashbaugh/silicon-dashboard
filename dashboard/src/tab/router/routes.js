@@ -1,8 +1,15 @@
-import PageIndex from './pages/Index'
+import indexPage from './pages/index'
+import loginPage from './pages/login'
 
 export default [
   {
     path: '/',
-    component: PageIndex
+    component: indexPage,
+    name: 'index'
+  },
+  {
+    path: '/login',
+    component: loginPage,
+    name: 'login'
   }
 ]

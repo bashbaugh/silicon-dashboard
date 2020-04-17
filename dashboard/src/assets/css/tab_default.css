@@ -1,7 +1,58 @@
 html {
   background: url("/assets/images/dash_backgrounds/dark-blue-1.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
+}
+
+div.center {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  width: 100%;
+  top: 30%;
+}
+
+.large-input-prompt {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 2.2em;
+  /*text-decoration: underline;*/
+}
+
+.large-input-container {
+  width: 30%;
+  margin: 100px auto 50px;
+}
+
+.large-input-status {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+input[type=text] {
+  width: 100%;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5em;
+  font-weight: 400;
+  text-align: center;
+  padding: 10px;
+  background: none;
+  border: 1px solid #ffffff;
+  outline: none;
+}
+
+input.username {
+  width: 100%;
+  font-family: 'Digit', cursive;
+  font-size: 2.5em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px;
+  background: none;
+  border: 1px solid #ffffff;
+  outline: none;
+}
+
+input[type=text]:focus {
+  outline: none;
 }

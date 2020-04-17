@@ -2,14 +2,19 @@
  * Default Theme
  */
 
+@font-face {
+  font-family: 'Digit';
+  src: url('/assets/fonts/Digit.ttf');
+}
+
 p {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .green {
-    color: #2dc12d;
+  color: #2dc12d;
 }
 
 .red {
-    color: #a82121;
+  color: #a82121;
 }
