@@ -1,6 +1,8 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import _ from 'lodash/core'
 import { fireAuth, fireStore } from '../firebase_exports'
+import defaultSettings from '../default_settings'
 
 Vue.use(Vuex)
 
@@ -10,6 +12,8 @@ export default new Vuex.Store({
     user: null,
     userData: {
       name: null
+    },
+    settings: {
     }
   },
   getters: {
@@ -28,6 +32,9 @@ export default new Vuex.Store({
     MERGE_PROFILE(state, newProfile) {
       if (state.userData) Object.assign(state.userData, newProfile)
       else state.userData = newProfile
+    },
+    SET_SETTINGS(state, settings) {
+      state.settings = settings
     }
   },
   actions: {
@@ -35,6 +42,7 @@ export default new Vuex.Store({
       if (!ctx.state.loggedIn) return
       ctx.commit('CLEAR_USER')
       fireAuth().signOut()
+      Vue.$playSound('whir_1')
     },
     setUser(ctx, { user }) {
       // Clear user data so it doesn't interfere with new user's data
@@ -47,6 +55,16 @@ export default new Vuex.Store({
         .then((snap) => {
           // Commit profile data to userData
           ctx.commit('MERGE_PROFILE', snap.data())
+
+          // Merge settings from user's profile with default settings
+          const userSettings = snap.data().settings
+          if (_.isEqual(Object.assign(defaultSettings, userSettings), userSettings)) {
+            // New default settings need to be saved to user's profile
+            ctx.dispatch('updateProfile', { settings: defaultSettings })
+          }
+
+          // Copy settings from profile and default
+          ctx.commit('SET_SETTINGS', defaultSettings)
           resolve()
         })
         .catch((err) => {
@@ -60,6 +78,8 @@ export default new Vuex.Store({
         .then((docref) => {
           // Commit new profile data to userData
           ctx.commit('MERGE_PROFILE', newProfile)
+          // Update settings from state and new profile
+          ctx.commit('SET_SETTINGS', Object.assign(ctx.state.settings, newProfile.settings))
           resolve()
         })
         .catch((err) => {

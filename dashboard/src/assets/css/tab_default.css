@@ -2,15 +2,26 @@ html {
   background: url("/assets/images/dash_backgrounds/dark-blue-1.jpg") no-repeat center center fixed;
   background-size: cover;
 }
-
+/* Layout */
 div.center {
   position: absolute;
   text-align: center;
   left: 0;
   width: 100%;
-  top: 30%;
+  top: 35%;
 }
 
+div.content {
+  width: 60%;
+  margin: 5% auto 0px;
+  text-align: center;
+}
+
+.typer-span div {
+  display: inline;
+}
+
+/* Input */
 .large-input-prompt {
   font-family: 'Orbitron', sans-serif;
   font-weight: 800;
@@ -32,7 +43,7 @@ div.center {
   font-weight: 600;
 }
 
-input[type=text],input[type=password] {
+input.large {
   width: 100%;
   font-family: 'Orbitron', sans-serif;
   font-size: 2.5em;
@@ -44,22 +55,23 @@ input[type=text],input[type=password] {
   outline: none;
 }
 
-input.username {
-  width: 100%;
-  font-family: 'Digit', cursive;
-  font-size: 2.5em;
-  text-align: center;
-  text-transform: uppercase;
-  padding: 10px;
-  background: none;
-  border: 1px solid #ffffff;
-  outline: none;
-}
-
 input[type=text]:focus {
   outline: none;
 }
 
-.typer-span div {
-  display: inline;
+/* Buttons */
+.function-button {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3em;
+  font-weight: 400;
+  text-align: center;
+  cursor: pointer;
+}
+.function-button .key {
+  color: #b3b3b3;
+  font-size: 1.1em;
+  padding: 0px 2px;
+  margin: 0px 2px;
+  background: #1f1f1f;
+  border-radius: 3px;
 }

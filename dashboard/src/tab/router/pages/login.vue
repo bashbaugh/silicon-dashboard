@@ -6,6 +6,7 @@
       <div class="large-input-container">
         <GlobalEvents @keyup.esc="restartAuth" />
         <input
+            class="large"
             v-model="userInput"
             @input="inputChanged"
             @keydown.enter="processInput"
@@ -89,7 +90,7 @@ export default {
         case 0:
           fireAuth().fetchSignInMethodsForEmail(this.userInput)
           .then((signInMethods) => {
-            this.$emit('playSound', 'clink_1')
+            this.$playSound('clink_1')
             this.userEmail = this.userInput
             this.userInput = ''
             if (signInMethods.length === 0) {
@@ -105,14 +106,14 @@ export default {
             this.$nextTick(() => {this.$refs.input.focus()})
           })
           .catch((err) => {
-            this.$emit('playSound', 'clicks_1')
+            this.$playSound('clicks_1')
             this.statusType('EMAIL_INVALID :: PLEASE RE-ENTER', true)
             this.inputDisabled = false
             this.$nextTick(() => {this.$refs.input.focus()})
           })
           return
         case 1:
-          this.$emit('playSound', 'clink_1')
+          this.$playSound('clink_1')
           this.userName = this.userInput
           this.userInput = ''
           this.inputPrompt = `CHOOSE A PASSWORD, ${this.userName}`
@@ -128,17 +129,17 @@ export default {
             this.$store.dispatch('setUser', { user: userCred.user })
             this.$store.dispatch('updateProfile', { name: this.userName })
             .then(() => {
-              this.$emit('playSound', 'clink_1')
+              this.$playSound('clink_1')
               setTimeout(() => { this.$router.replace('/') }, 1000)
             })
             .catch((err) => {
-              this.$emit('playSound', 'clicks_1')
+              this.$playSound('clicks_1')
               this.statusType(`PROFILE_SET_ERROR: ${err}`, true)
               setTimeout(() => { this.$router.replace('/profile') }, 5000)
             })
           })
           .catch(({ code, message }) => {
-            this.$emit('playSound', 'clicks_1')
+            this.$playSound('clicks_1')
             if (code === 'auth/weak-password') {
               this.statusType('PASSWORD_TOO_WEAK ::: MUST BE 6 CHARACTERS OR LONGER', true)
             } else {
@@ -151,12 +152,12 @@ export default {
         case 3:
           fireAuth().signInWithEmailAndPassword(this.userEmail, this.userInput)
           .then((userCred) => {
-            this.$emit('playSound', 'clink_1')
+            this.$playSound('clink_1')
             this.$store.dispatch('setUser', { user: userCred.user })
             this.$router.replace('/')
           })
           .catch(({ code, message }) => {
-            this.$emit('playSound', 'clicks_1')
+            this.$playSound('clicks_1')
             if (code === 'auth/user-disabled') {
               this.statusType('ACCOUNT_DISABLED :: YOUR ACCOUNT HAS BEEN DISABLED', true)
             } else if (code === 'auth/wrong-password') {
@@ -174,6 +175,7 @@ export default {
       if (this.currentStep === 1) this.userInput = this.userInput.replace(' ', '_')
     },
     restartAuth() {
+      this.$playSound('whir_1')
       this.inputStatus.kill()
 
       Object.assign(this.$data, initialData())

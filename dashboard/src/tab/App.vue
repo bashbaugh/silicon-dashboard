@@ -1,16 +1,20 @@
 <template>
   <div>
-    <router-view @playSound="playSound"></router-view>
+    <router-view />
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import GlobalEvents from 'vue-global-events'
+import customActions from './plugins/actions'
 import { fireAuth } from './firebase_exports'
 
 // Register global events component
 Vue.component('GlobalEvents', GlobalEvents)
+
+// Register custom plugins
+Vue.use(customActions)
 
 export default {
   data () {
@@ -20,7 +24,7 @@ export default {
     // Create auth listener to update app on sign in/out
     fireAuth().onAuthStateChanged((user) => {
       if (user) {
-        // this.$store.dispatch('setUser', { user })
+        this.$store.dispatch('setUser', { user })
       } else {
         this.$store.dispatch('logOut')
         if (this.$route.name !== 'login') this.$router.replace('/login')
@@ -28,10 +32,6 @@ export default {
     })
   },
   methods: {
-    playSound(soundsrc) {
-      const sound = new Audio(`/assets/sounds/${soundsrc}.mp3`)
-      sound.play()
-    }
   }
 }
 </script>

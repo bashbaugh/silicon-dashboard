@@ -7,10 +7,22 @@
       <div class="function-button"><span class="key">ESC</span> RESTART</div>
     </template>
     <template v-else-if="$store.state.loggedIn">
-      <GlobalEvents @keyup.l="$store.dispatch('logOut')" />
+      <GlobalEvents
+          @keyup="$emit('playSound', 'glitch_1')"
+          @keyup.shift.l="$store.dispatch('logOut')"
+          @keyup.shift.s="$navigate('settings')"
+          @keyup.esc="$navigate('')"
+      />
+      <div class="function-button" v-if="$route.name !== 'index'" @click="$navigate('')"><span class="key">ESC</span> HOME</div>
+      <div class="function-button">
+        <span class="key">N</span>EW
+        <div class="function-dropdown">
+
+        </div>
+      </div>
       <div class="function-button"><span class="key">O</span>PEN PROJECT</div>
-      <div class="function-button"><span class="key">S</span>ETTINGS</div>
-      <div class="function-button"><span class="key">L</span>OG OUT</div>
+      <div class="function-button" @click="$navigate('settings')"><span class="key">↑S</span>ETTINGS</div>
+      <div class="function-button" @click="$store.dispatch('logOut')"><span class="key">↑L</span>OG OUT</div>
     </template>
     <template v-else>
       <div class="function-button">\\ VERIFYING //</div>
@@ -34,18 +46,21 @@ export default {
   },
   props: {
     title: String
+  },
+  methods: {
   }
 }
 </script>
 
-<style>
+<style scoped>
   .bar {
-    position: fixed;
+    /*position: absolute;*/
     display: flex;
+    margin: 0;
     top: 0;
     left: 0;
     right: 0;
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px solid black;
     cursor: default;
     user-select: none;
@@ -69,28 +84,4 @@ export default {
     font-weight: 600;
     text-transform: uppercase;
   }
-  .function-button {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.3em;
-    font-weight: 400;
-    text-align: center;
-  }
-  .function-button .key {
-    color: #b3b3b3;
-    font-size: 1.1em;
-    padding: 0px 2px;
-    margin: 0px 2px;
-    background: #1f1f1f;
-    border-radius: 3px;
-  }
-  /*.function-button .key::after {*/
-  /*  content: "]";*/
-  /*  font-weight: 400;*/
-  /*  margin: 1px;*/
-  /*}*/
-  /*.function-button .key::before {*/
-  /*  content: "[";*/
-  /*  font-weight: 400;*/
-  /*  margin: 1px;*/
-  /*}*/
 </style>

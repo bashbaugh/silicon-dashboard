@@ -11,13 +11,14 @@
     "lint": "eslint --ext .js,.vue src",
     "build": "cross-env NODE_ENV=production webpack --hide-modules",
     "build:dev": "cross-env NODE_ENV=development webpack --hide-modules",
-    "build-zip": "node scripts/build-zip.js",
+    "build-zip": "yarn run build && node scripts/build-zip.js",
     "watch": "yarn run build -- --watch",
     "watch:dev": "cross-env HMR=true yarn run build:dev -- --watch"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "firebase": "^7.14.1",
+    "lodash": "^4.17.15",
     "tailwindcss": "^1.2.0",
     "typer-js": "^5.3.0",
     "vue": "^2.6.10",
