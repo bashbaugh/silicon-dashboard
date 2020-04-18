@@ -28,8 +28,9 @@ export default {
     })
   },
   methods: {
-    playSound() {
-
+    playSound(soundsrc) {
+      const sound = new Audio(`/assets/sounds/${soundsrc}.mp3`)
+      sound.play()
     }
   }
 }

@@ -6326,14 +6326,15 @@ type-fest@^0.8.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
-"typed.js@git+https://github.com/mattboldt/typed.js.git":
-  version "2.0.11"
-  resolved "git+https://github.com/mattboldt/typed.js.git#950d4527ce82c565cf248961f7c476ed7d225ae7"
-
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typer-js@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/typer-js/-/typer-js-5.3.0.tgz#98d9df90fcc84f41cb385186ba644db739e96294"
+  integrity sha512-8+EfKmUGVRu7syEf4nybw9K6wib1zcaGc9166NfDaRiRxQvlUHu2d2y8Yq7lWNSxI6l+ZE33p2YQDn3DLBVV2Q==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
@@ -6552,13 +6553,6 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
-
-vue-typed-js@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/vue-typed-js/-/vue-typed-js-0.1.2.tgz#afc38972675314c37df6de91daf870f6860024ca"
-  integrity sha512-9kDGuz17uYJghe/1hepRWiWYssgUFtrKnMGPHlWjVRxdvs/d9xYYWMkgzztjhx1R1B33hXkN8ctmkzCYHQ+caA==
-  dependencies:
-    typed.js "git+https://github.com/mattboldt/typed.js.git"
 
 vue@^2.6.10:
   version "2.6.11"

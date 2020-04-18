@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopBar title="SILICON: AUTHORIZATION"/>
+    <TopBar title="SILICON: AUTHENTICATION"/>
     <div class="center">
       <div class="large-input-prompt">{{ inputPrompt }}</div>
       <div class="large-input-container">
@@ -15,100 +15,134 @@
             :maxlength="currentStep === 1 ? '16' : null"
             :disabled="inputDisabled" >
       </div>
-      <div :class="['large-input-status', inputStatusWarning ? 'red' : 'green']">CURRENT STATUS: &nbsp; AUTH://{{ inputStatus }}</div>
+      <div :class="['large-input-status', inputStatusWarning ? 'red' : 'green']">CURRENT STATUS: &nbsp; AUTH://<span class="typer-span" ref="statusRef" id="statusRef"></span></div>
     </div>
   </div>
 </template>
 
 <script>
+import typer from 'typer-js'
 import TopBar from '../components/top'
 import { fireAuth } from '../../firebase_exports'
 
 function initialData() {
   return {
     userInput: '',
+
     inputPrompt: 'ENTER YOUR EMAIL',
-    inputStatus: 'WAITING_FOR_INPUT',
+    inputStatus: null,
     inputStatusWarning: false,
     inputDisabled: false,
     currentStep: 0, // 0 = email, 1 = name (skipped for valid email), 2 = password for register (skipped for valid email), 3 = password for login (skipped for new users)
 
     userEmail: '',
     userName: '',
+
+    typerQueueLength: 0
   }
 }
 
 export default {
   name: 'Login',
   components: {
-    TopBar
+    TopBar,
   },
   data () {
     return initialData()
   },
   mounted() {
     this.$refs.input.focus()
+
+    this.inputStatus = typer('#statusRef', { speed: 20 })
+    .cursor({ block: true })
+
+    this.statusType('WAITING_FOR_INPUT')
+
   },
   methods: {
+    statusType(str, warning) {
+      this.inputStatusWarning = warning
+
+      this.typerQueueLength ++
+
+      this.inputStatus
+      .run(() => {
+        this.typerQueueLength -- // Subtract from typer queue
+      })
+      .empty()
+      .line(str)
+      .run(() => {
+        setTimeout(() => {
+          // If there are more lines in the queue, emit the type event again to start the next line
+          if (this.typerQueueLength) document.body.dispatchEvent(new Event('typer-type'))
+        }, 20) // But wait until after .listen has been called
+      })
+      .listen('typer-type') // Pause and wait for type event
+
+      document.body.dispatchEvent(new Event('typer-type')) // Start typing
+    },
     processInput() {
       this.inputDisabled = true
       this.inputStatusWarning = false
-      this.inputStatus = 'PROCESSING_USER_INPUT'
+      this.statusType('PROCESSING_USER_INPUT')
       switch (this.currentStep) {
         case 0:
           fireAuth().fetchSignInMethodsForEmail(this.userInput)
           .then((signInMethods) => {
+            this.$emit('playSound', 'clink_1')
             this.userEmail = this.userInput
             this.userInput = ''
             if (signInMethods.length === 0) {
               this.inputPrompt = 'ENTER YOUR NAME'
-              this.inputStatus = 'REQUESTING_NAME'
+              this.statusType('REQUESTING_NAME')
               this.currentStep = 1
             } else {
               this.inputPrompt = 'ENTER YOUR PASSWORD'
-              this.inputStatus = 'REQUESTING_PASSKEY'
+              this.statusType('REQUESTING_PASSKEY')
               this.currentStep = 3
             }
             this.inputDisabled = false
             this.$nextTick(() => {this.$refs.input.focus()})
           })
           .catch((err) => {
-            this.inputStatusWarning = true
-            this.inputStatus = 'EMAIL_INVALID :: PLEASE RE-ENTER'
+            this.$emit('playSound', 'clicks_1')
+            this.statusType('EMAIL_INVALID :: PLEASE RE-ENTER', true)
             this.inputDisabled = false
             this.$nextTick(() => {this.$refs.input.focus()})
           })
           return
         case 1:
+          this.$emit('playSound', 'clink_1')
           this.userName = this.userInput
           this.userInput = ''
           this.inputPrompt = `CHOOSE A PASSWORD, ${this.userName}`
-          this.inputStatus = 'WAITING_FOR_PASSKEY'
+          this.statusType('WAITING_FOR_PASSKEY')
           this.currentStep = 2
           this.inputDisabled = false
           this.$nextTick(() => {this.$refs.input.focus()})
           return
         case 2:
-          this.inputStatus = 'INITIALIZING_NEW_USER'
+          this.statusType('INITIALIZING_NEW_USER')
           fireAuth().createUserWithEmailAndPassword(this.userEmail, this.userInput)
           .then((userCred) => {
             this.$store.dispatch('setUser', { user: userCred.user })
             this.$store.dispatch('updateProfile', { name: this.userName })
             .then(() => {
+              this.$emit('playSound', 'clink_1')
               setTimeout(() => { this.$router.replace('/') }, 1000)
             })
             .catch((err) => {
-              this.inputStatusWarning = true
-              this.inputStatus = `PROFILE_SET_ERROR: ${err}`
+              this.$emit('playSound', 'clicks_1')
+              this.statusType(`PROFILE_SET_ERROR: ${err}`, true)
               setTimeout(() => { this.$router.replace('/profile') }, 5000)
             })
           })
           .catch(({ code, message }) => {
-            this.inputStatusWarning = true
+            this.$emit('playSound', 'clicks_1')
             if (code === 'auth/weak-password') {
-              this.inputStatus = 'PASSWORD_TOO_WEAK ::: MUST BE 6 CHARACTERS OR LONGER'
+              this.statusType('PASSWORD_TOO_WEAK ::: MUST BE 6 CHARACTERS OR LONGER', true)
             } else {
-              this.inputStatus = `LOGIN_ERROR: ${message}`
+              this.statusType(`LOGIN_ERROR: ${message}`, true)
             }
             this.inputDisabled = false
             this.$nextTick(() => {this.$refs.input.focus()})
@@ -117,17 +151,18 @@ export default {
         case 3:
           fireAuth().signInWithEmailAndPassword(this.userEmail, this.userInput)
           .then((userCred) => {
+            this.$emit('playSound', 'clink_1')
             this.$store.dispatch('setUser', { user: userCred.user })
             this.$router.replace('/')
           })
           .catch(({ code, message }) => {
-            this.inputStatusWarning = true
+            this.$emit('playSound', 'clicks_1')
             if (code === 'auth/user-disabled') {
-              this.inputStatus = 'ACCOUNT_DISABLED :: YOUR ACCOUNT HAS BEEN DISABLED'
+              this.statusType('ACCOUNT_DISABLED :: YOUR ACCOUNT HAS BEEN DISABLED', true)
             } else if (code === 'auth/wrong-password') {
-              this.inputStatus = 'WRONG_PASSWORD :: PLEASE TRY AGAIN OR PRESS ESC TO RESTART'
+              this.statusType('WRONG_PASSWORD :: PLEASE TRY AGAIN OR PRESS ESC TO RESTART', true)
             } else {
-              this.inputStatus = `LOGIN_ERROR: ${message}`
+              this.statusType(`LOGIN_ERROR: ${message}`, true)
             }
             this.inputDisabled = false
             this.$nextTick(() => {this.$refs.input.focus()})
@@ -139,7 +174,21 @@ export default {
       if (this.currentStep === 1) this.userInput = this.userInput.replace(' ', '_')
     },
     restartAuth() {
+      this.inputStatus.kill()
+
       Object.assign(this.$data, initialData())
+
+      this.inputStatus = typer('#statusRef', { speed: 20 })
+      .cursor({ block: true })
+
+      this.statusType('WAITING_FOR_INPUT')
+    },
+  },
+  watch: {
+    typerFinished (newVal, oldVal) {
+      if (newVal && !oldVal) {
+
+      }
     }
   }
 }

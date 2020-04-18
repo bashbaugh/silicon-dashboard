@@ -27,7 +27,6 @@ div.center {
 
 .large-input-status {
   cursor: default;
-  user-select: none;
   font-family: 'Raleway', sans-serif;
   font-size: 1.2em;
   font-weight: 600;
@@ -59,4 +58,8 @@ input.username {
 
 input[type=text]:focus {
   outline: none;
+}
+
+.typer-span div {
+  display: inline;
 }
