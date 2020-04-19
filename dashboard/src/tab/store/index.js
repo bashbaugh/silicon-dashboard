@@ -40,9 +40,9 @@ export default new Vuex.Store({
   actions: {
     logOut(ctx) {
       if (!ctx.state.loggedIn) return
+      // Vue.$playSound('whir_1')
       ctx.commit('CLEAR_USER')
       fireAuth().signOut()
-      Vue.$playSound('whir_1')
     },
     setUser(ctx, { user }) {
       // Clear user data so it doesn't interfere with new user's data

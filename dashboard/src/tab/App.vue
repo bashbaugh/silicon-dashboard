@@ -25,6 +25,9 @@ export default {
     fireAuth().onAuthStateChanged((user) => {
       if (user) {
         this.$store.dispatch('setUser', { user })
+        setTimeout(() => {
+          this.$playSound('beep_1')
+        }, 500)
       } else {
         this.$store.dispatch('logOut')
         if (this.$route.name !== 'login') this.$router.replace('/login')

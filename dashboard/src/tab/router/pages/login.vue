@@ -1,10 +1,10 @@
 <template>
   <div>
-    <TopBar title="SILICON: AUTHENTICATION"/>
+    <TopBar title="SILICON: AUTHENTICATION" @submitbtn="processInput" @restartbtn="restartAuth" @resetpwdbtn="resetPassword"/>
     <div class="center">
       <div class="large-input-prompt">{{ inputPrompt }}</div>
       <div class="large-input-container">
-        <GlobalEvents @keyup.esc="restartAuth" />
+        <GlobalEvents @keyup.esc="restartAuth"/>
         <input
             class="large"
             v-model="userInput"
@@ -34,7 +34,8 @@ function initialData() {
     inputStatus: null,
     inputStatusWarning: false,
     inputDisabled: false,
-    currentStep: 0, // 0 = email, 1 = name (skipped for valid email), 2 = password for register (skipped for valid email), 3 = password for login (skipped for new users)
+    currentStep: 0,
+    // 0 = email, 1 = name (skipped for valid email), 2 = password for register (skipped for valid email), 3 = password for login (skipped for new users), 4 = reset password
 
     userEmail: '',
     userName: '',
@@ -169,6 +170,25 @@ export default {
             this.$nextTick(() => {this.$refs.input.focus()})
           })
           return
+        case 4:
+          fireAuth().sendPasswordResetEmail(this.userInput, { url: 'https://silicon-dashboard.netlify.app/passwordreset'})
+          .then(() => {
+            this.$playSound('clink_1')
+            this.inputDisabled = true
+            this.inputPrompt = 'PASSWORD RESET EMAIL SENT'
+            this.statusType('RESET_EMAIL_SENT: please check your email')
+          })
+          .catch(({ code, message }) => {
+            this.$playSound('clicks_1')
+            this.inputDisabled = false
+            if (code === 'auth/invalid-email') {
+              this.statusType('INVALID_EMAIL: That\'s not a valid email', true)
+            } else if (code === 'auth/user-not-found') {
+              this.statusType('ACCOUNT_NOT_FOUND: Try again or press ESC to create new account', true)
+            } else {
+              this.statusType('UNKNOWN_ERROR_OCCURRED: ' + message, true)
+            }
+          })
       }
     },
     inputChanged() {
@@ -185,6 +205,13 @@ export default {
 
       this.statusType('WAITING_FOR_INPUT')
     },
+    resetPassword() {
+      this.userInput = ''
+      this.statusType('CONFIRMING_EMAIL')
+      this.inputPrompt = 'ENTER YOUR EMAIL TO RESET YOUR PASSWORD'
+      this.currentStep = 4
+      this.$refs.input.focus()
+    }
   },
   watch: {
     typerFinished (newVal, oldVal) {

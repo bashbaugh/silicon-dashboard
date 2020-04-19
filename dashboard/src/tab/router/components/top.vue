@@ -3,14 +3,14 @@
     <div v-if="title" class="title">\\ {{ title }}</div>
     <div v-else class="title">\\ SILICON: DASHBOARD</div>
     <template v-if="$route.name === 'login'">
-      <div class="function-button"><span class="key">⏎</span> SUBMIT</div>
-      <div class="function-button"><span class="key">ESC</span> RESTART</div>
+      <div class="function-button" @click="$emit('submitbtn')"><span class="key">⏎</span> SUBMIT</div>
+      <div class="function-button" @click="$emit('resetpwdbtn')">RESET PASSWORD</div>
+      <div class="function-button" @click="$emit('restartbtn')"><span class="key">ESC</span> RESTART</div>
     </template>
     <template v-else-if="$store.state.loggedIn">
       <GlobalEvents
-          @keyup="$emit('playSound', 'glitch_1')"
-          @keyup.shift.l="$store.dispatch('logOut')"
-          @keyup.shift.s="$navigate('settings')"
+          @keyup.shift.l="() => {$playSound('whir_1'); $store.dispatch('logOut')}"
+          @keypress.shift.s="$navigate('settings')"
           @keyup.esc="$navigate('')"
       />
       <div class="function-button" v-if="$route.name !== 'index'" @click="$navigate('')"><span class="key">ESC</span> HOME</div>

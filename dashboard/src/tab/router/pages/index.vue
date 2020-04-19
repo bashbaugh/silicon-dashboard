@@ -27,7 +27,7 @@ export default {
     TopBar
   },
   mounted() {
-    this.$playSound('beep_1')
+    if (this.$store.state.loggedIn) this.$playSound('beep_1')
     setInterval(this.updateDashboard, 100)
   },
   data () {
