@@ -15,9 +15,12 @@
       />
       <div class="function-button" v-if="$route.name !== 'index'" @click="$navigate('')"><span class="key">ESC</span> HOME</div>
       <div class="function-button">
-        <span class="key">N</span>EW
-        <div class="function-dropdown">
-
+        <div class="function-dropdown-button">
+          <span class="key">N</span>EW
+          <div class="function-dropdown">
+            <div>hello</div>
+            <div>there</div>
+          </div>
         </div>
       </div>
       <div class="function-button"><span class="key">O</span>PEN PROJECT</div>
@@ -83,5 +86,18 @@ export default {
     font-size: 0.9em;
     font-weight: 600;
     text-transform: uppercase;
+  }
+  .function-dropdown-button {
+
+  }
+  .function-dropdown {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+  }
+  .function-dropdown div {
+    height: 30px;
+    width: 200px;
+    margin: 0 auto;
   }
 </style>

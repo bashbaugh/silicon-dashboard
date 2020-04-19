@@ -1,3 +1,4 @@
 export default {
-  sound: true
+  sound: true,
+  minimal: false
 }

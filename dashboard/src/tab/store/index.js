@@ -14,6 +14,8 @@ export default new Vuex.Store({
       name: null
     },
     settings: {
+      sound: null,
+      minimal: null
     }
   },
   getters: {

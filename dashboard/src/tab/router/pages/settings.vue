@@ -4,9 +4,18 @@
     <div class="content">
       <h2 class="title">SETTINGS</h2>
       <h4 class="status">{{ status }}</h4>
-      <div class="soption-container">
-        <h4 class="option-title">SOUND EFFECTS</h4>
-        <p class="sound.value ? 'green' : 'red'" @click="() => updateSettings({ sound: !$store.state.settings.sound })">{ SOUND: OPTIONS.{{ sound }} }</p>
+      <div class="option-container">
+        <h3 class="option-title">SOUND EFFECTS</h3>
+        <p :class="$store.state.settings.sound ? 'green' : 'red'" @click="() => updateSettings({ sound: !$store.state.settings.sound })">
+          { SOUND: OPTIONS.{{ $store.state.settings.sound ? 'SOUND_ENABLED' : 'SOUND_DISABLED' }} }
+        </p>
+      </div>
+      <div class="option-container">
+        <h3 class="option-title">MINIMAL MODE</h3>
+        <h4>Enabling minimal mode will disable all unnecessary UI elements, such as stats and extra effects</h4>
+        <p :class="$store.state.settings.minimal ? 'green' : 'red'" @click="() => updateSettings({ minimal: !$store.state.settings.minimal })">
+          { MINIMAL_MODE: {{ $store.state.settings.minimal ? 'ACTIVE' : 'DISABLED' }} }
+        </p>
       </div>
     </div>
   </div>
@@ -28,14 +37,9 @@ export default {
       status: 'click on an option to change it'
     }
   },
-  computed: {
-    sound () {
-      return (this.$store.state.settings.sound) ? 'SOUND_ENABLED' : 'SOUND_DISABLED'
-    }
-  },
   methods: {
     updateSettings(setting) {
-      new Audio(`/assets/sounds/clink_1.mp3`).play()
+      this.$playSound('clink_1')
       this.status = 'Saving...'
       this.$store.dispatch('updateProfile', { settings: setting })
       .then(() => {
@@ -63,7 +67,6 @@ export default {
     width: 50%;
     padding: 5px;
     background: black;
-    color: #2dc12d;
     cursor: pointer;
     user-select: none;
     font-family: 'Raleway', sans-serif;
