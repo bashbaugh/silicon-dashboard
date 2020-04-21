@@ -2,6 +2,20 @@ html {
   background: url("/assets/images/dash_backgrounds/dark-blue-1.jpg") no-repeat center center fixed;
   background-size: cover;
 }
+
+@font-face {
+  font-family: 'Digit';
+  src: url('/assets/fonts/Digit.ttf');
+}
+
+.green {
+  color: #2dc12d;
+}
+
+.red {
+  color: #a82121;
+}
+
 /* Layout */
 div.center {
   position: absolute;

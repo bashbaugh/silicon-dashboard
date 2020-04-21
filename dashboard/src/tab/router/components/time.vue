@@ -1,15 +1,23 @@
 <template>
 <div>
   <div class="time">
-    <div class="time-back"></div>
-    <div class="time-div">
+    <div class="time-div" :class="[open ? 'slide-in-right' : 'slide-out-right', hidden ? 'hidden' : '']">
       <div class="tabs">
-        <div @click="switchTab('alarm')" :class="tab.alarm ? 'active' : ''"><i class="fas fa-bell"></i></div>
+        <div @click="switchTab('reminders')" :class="tab.reminders ? 'active' : ''"><i class="fas fa-bell"></i></div>
         <div @click="switchTab('timer')" :class="tab.timer ? 'active' : ''"><i class="fas fa-hourglass"></i></div>
         <div @click="switchTab('stopwatch')" :class="tab.stopwatch ? 'active' : ''"><i class="fas fa-stopwatch"></i></div>
       </div>
-      <div class="time-content" ref="alarm">
-        <h3><span class="title-prefix">PRGM?\\_</span>SET_ALARM</h3>
+      <div :class="['time-content', tab.reminders ? '' : 'hidden']">
+        <h3><span class="title-prefix">PRGM?\\_</span>REMINDERS</h3>
+        Set reminders - coming soon
+      </div>
+      <div :class="['time-content', tab.timer ? '' : 'hidden']">
+        <h3><span class="title-prefix">PRGM?\\_</span>TIMER</h3>
+        Set timer - coming soon
+      </div>
+      <div :class="['time-content', tab.stopwatch ? '' : 'hidden']">
+        <h3><span class="title-prefix">PRGM?\\_</span>STOPWATCH</h3>
+        Stopwatch - coming soon
       </div>
     </div>
   </div>
@@ -27,10 +35,11 @@ export default {
   },
   data () {
     return {
-      currentTab: 'alarm',
+      hidden: true,
+      currentTab: 'timer',
       tab: {
-        alarm: true,
-        timer: false,
+        reminders: false,
+        timer: true,
         stopwatch: false
       }
     }
@@ -38,10 +47,19 @@ export default {
   props: {
     open: Boolean
   },
+  watch: {
+    open(newVal, oldVal) {
+      // Once user opens the time modal, remove hidden
+      if (newVal === true) {
+        this.hidden = false
+      }
+    }
+  },
   methods: {
     switchTab(tab) {
       this.tab[this.currentTab] = false
       this.tab[tab] = true
+      this.currentTab = tab
     }
   }
 }
@@ -49,31 +67,28 @@ export default {
 
 <style scoped>
 
-  .time > div {
+  .time-div {
     position: fixed;
     bottom: 50px;
     right: 10px;
     width: 20%;
     height: 40%;
     border-radius: 15px;
-  }
-
-  .time-back {
-    background: #242424;
-    opacity: 60%;
-  }
-
-  .time-div {
     text-align: center;
     font-family: 'Orbitron', sans-serif;
     font-weight: 400;
     font-size: 1.5em;
-    transform: translateY(3px) translateX(3px);
     border: 3px solid black;
+    background: rgba(36, 36, 36, 0.65);
+    opacity: 60%;
   }
+
   .time-content {
     cursor: default;
     user-select: none;
+  }
+  .time-content.hidden {
+    display: none;
   }
 
   .title-prefix {
