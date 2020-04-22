@@ -18,8 +18,8 @@
         <div class="function-dropdown-button">
           <span class="key">N</span>EW
           <div class="function-dropdown">
-            <div>hello</div>
-            <div>there</div>
+<!--            <div>hello</div>-->
+<!--            <div>there</div>-->
           </div>
         </div>
       </div>
@@ -67,6 +67,7 @@ export default {
     border-bottom: 1px solid black;
     cursor: default;
     user-select: none;
+    background: rgba(0, 0, 45, 0.1);
   }
   .bar > div {
     width: 100%;

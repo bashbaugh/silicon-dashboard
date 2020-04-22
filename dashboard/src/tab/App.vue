@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='root-div' :data-theme='$store.state.settings.theme'>
     <router-view />
   </div>
 </template>
@@ -18,7 +18,9 @@ Vue.use(customActions)
 
 export default {
   data () {
-    return {}
+    return {
+
+    }
   },
   mounted() {
     // Create auth listener to update app on sign in/out

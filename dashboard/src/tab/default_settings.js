@@ -1,4 +1,5 @@
 export default {
   sound: true,
-  minimal: false
+  minimal: false,
+  theme: 'dark'
 }

@@ -15,7 +15,8 @@ export default new Vuex.Store({
     },
     settings: {
       sound: null,
-      minimal: null
+      minimal: null,
+      theme: 'dark'
     }
   },
   getters: {

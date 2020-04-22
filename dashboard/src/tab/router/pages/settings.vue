@@ -17,6 +17,13 @@
           { MINIMAL_MODE: {{ $store.state.settings.minimal ? 'ACTIVE' : 'DISABLED' }} }
         </p>
       </div>
+      <div class="option-container">
+        <h3 class="option-title">THEME</h3>
+        <h4>Choose a color scheme. (default is dark)</h4>
+        <p class='gray'@click="() => updateSettings({ theme: $store.state.settings.theme === 'dark' ? 'light' : 'dark'})">
+          { THEME: {{ $store.state.settings.theme === 'dark' ? 'DARK' : 'LIGHT' }} }
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -66,11 +73,16 @@ export default {
     margin: 0 auto;
     width: 50%;
     padding: 5px;
-    background: black;
     cursor: pointer;
     user-select: none;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
     font-size: 1.2em;
+  }
+  div[data-theme='dark'] p {
+    background: black;
+  }
+  div[data-theme='light'] p {
+    background: white;
   }
 </style>

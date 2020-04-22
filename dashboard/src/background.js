@@ -1,14 +1,14 @@
-// // Initialize Firebase
-// import * as firebase from "firebase/app"
-//
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCGCKTiekfMNxbITbkL2w6nrs40QzvRKl0",
-//   authDomain: "silicon-dashboard.firebaseapp.com",
-//   databaseURL: "https://silicon-dashboard.firebaseio.com",
-//   projectId: "silicon-dashboard",
-//   storageBucket: "silicon-dashboard.appspot.com",
-//   messagingSenderId: "944838978229",
-//   appId: "1:944838978229:web:08c7625a68fd8650eb6cfc"
-// }
-//
-// firebase.initializeApp(firebaseConfig)
+// Initialize redirects for chat and project invites
+
+chrome.webRequest.onBeforeRequest.addListener((details) => {
+  // Get chat ID from URL params
+  const inviteCode = new URL(details.url).searchParams.get('chat_id')
+  // Redirect to extension URL
+  return {
+    redirectUrl: chrome.runtime.getURL('/tab/tab.html?chat_invite=' + inviteCode)
+  }
+}, {
+  urls: [
+    `*://silicon-dashboard.netlify.app/chat-invite?*`
+  ]
+}, ['blocking'])

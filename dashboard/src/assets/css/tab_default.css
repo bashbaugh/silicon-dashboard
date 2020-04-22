@@ -1,5 +1,5 @@
 html {
-  background: url("/assets/images/dash_backgrounds/dark-blue-1.jpg") no-repeat center center fixed;
+  background: url("/assets/images/dash_backgrounds/blue-triangles-1.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -9,11 +9,23 @@ html {
 }
 
 .green {
-  color: #2dc12d;
+  color: #22cd22;
 }
 
-.red {
+div[data-theme='dark'] .red {
   color: #a82121;
+}
+
+div[data-theme='light'] .red {
+  color: #e52f2f;
+}
+
+div[data-theme='dark'] .gray {
+  color: #6a6a6a;
+}
+
+div[data-theme='light'] .gray {
+  color: #4e4e4e;
 }
 
 /* Layout */
@@ -88,4 +100,99 @@ input[type=text]:focus {
   margin: 0px 2px;
   background: #1f1f1f;
   border-radius: 3px;
+}
+
+button {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3em;
+  font-weight: 400;
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+div[data-theme='dark'] button {
+  background: rgba(0, 66, 149, 0.36);
+  border: 3px solid #00003d;
+}
+
+div[data-theme='light'] button {
+  background: rgba(97, 175, 255, 0.6);
+  border: 3px solid #0040ac;
+}
+
+/*a {*/
+/*  color: inherit;*/
+/*  text-decoration: inherit;*/
+/*}*/
+
+/* Widgets */
+
+.widget {
+  position: fixed;
+  border-radius: 15px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  cursor: default;
+  user-select: none;
+}
+
+div[data-theme='dark'] .widget {
+  border: 3px solid black;
+  background: rgba(36, 36, 36, 0.65);
+  opacity: 80%;
+}
+
+div[data-theme='light'] .widget {
+  border: 3px solid white;
+  background: rgba(184, 184, 184, 0.65);
+  opacity: 80%;
+}
+
+.widget .tabs {
+  display: flex;
+}
+
+.widget .tabs > div {
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+}
+
+div[data-theme='dark'] .widget .tabs > div {
+  border-bottom: 2px solid #0c0c0c;
+}
+
+div[data-theme='light'] .widget .tabs > div {
+  border-bottom: 2px solid #ffffff;
+}
+
+.widget .tabs > div:hover {
+  opacity: 40%;
+}
+
+div[data-theme='dark'] .widget .tabs > div.active {
+  background: #1f1f1f;
+}
+
+div[data-theme='light'] .widget .tabs > div.active {
+  background: #9c9c9c;
+}
+
+div[data-theme='dark'] .widget .tabs > div:not(:last-child) {
+  border-right: 1px solid black;
+}
+
+div[data-theme='light'] .widget .tabs > div:not(:last-child) {
+  border-right: 1px solid #ffffff;
+}
+
+div[data-theme='dark'] .widget .title-prefix {
+  color: rgb(28, 28, 28);
+}
+
+div[data-theme='light'] .widget .title-prefix {
+  color: rgb(201, 201, 201);
 }
