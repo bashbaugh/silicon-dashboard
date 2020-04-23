@@ -93,6 +93,7 @@ input[type=text]:focus {
   text-align: center;
   cursor: pointer;
 }
+
 .function-button .key {
   color: #b3b3b3;
   font-size: 1.1em;
@@ -109,6 +110,16 @@ button {
   text-align: center;
   cursor: pointer;
   padding: 5px;
+}
+
+.clickable {
+  user-select: none;
+  cursor: pointer;
+}
+
+.selectable {
+  user-select: text;
+  cursor: text;
 }
 
 div[data-theme='dark'] button {

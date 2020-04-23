@@ -11,7 +11,8 @@ export default new Vuex.Store({
     loggedIn: false,
     user: null,
     userData: {
-      name: null
+      name: null,
+      chats: {}
     },
     settings: {
       sound: null,

@@ -9,7 +9,11 @@ service cloud.firestore {
     }
     match /chats/{chatid} {
       match /pendingUsers/{userid} {
-        allow read, write: if request.auth.uid == userid && exists(/databases/$(database)/documents/chats/{chatid})
+        allow read, write: if request.auth.uid == userid && exists(/databases/$(database)/documents/chats/$(chatid))
+      }
+      match /users/{userid} {
+        allow read: if exists(/databases/$(database)/documents/chats/$(chatid)/users/$(request.auth.uid))
+        allow write: if request.auth.uid == get(/databases/$(database)/documents/chats/$(chatid)).data.owner
       }
     }
   }
