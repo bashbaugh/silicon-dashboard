@@ -12,7 +12,8 @@
     "webRequest",
     "webRequestBlocking",
     "*://silicon-dashboard.netlify.app/*",
-    "https://us-central1-silicon-dashboard.cloudfunctions.net/*"
+    "https://us-central1-silicon-dashboard.cloudfunctions.net/*",
+    "*://kit.fontawesome.com/*"
   ],
   "browser_action": {
     "default_title": "Silicon Dashboard",

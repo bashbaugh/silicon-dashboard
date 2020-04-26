@@ -3,14 +3,24 @@
   <div>
     <div class="widget" :class="[open ? 'slide-in-right' : 'slide-out-right', hidden ? 'hidden' : '']">
       <div class="tabs">
-        <div @click="switchTab('overview')" :class="{ 'active': tab.overview }"><i class="fas fa-home"></i></div>
+        <div @click="switchTab('overview')" :class="{ 'active': tab.overview }"><i class="fas fa-list"></i></div>
         <div v-if="tab.overview || tab.newChat" @click="switchTab('newChat')" :class="{ 'active': tab.newChat }"><i class="fas fa-plus"></i></div>
-        <div v-if="tab.chat" @click="addUser"><i class="fas fa-user-plus"></i></div>
-        <div v-if="tab.chat" @click=""><i class="fas fa-users"></i></div>
+        <div v-if="tab.chat" @click=""><i class="fas fa-user-plus"></i></div>
+         <div v-if="tab.chat" @click=""><i class="fas fa-users"></i></div>
+        <div v-if="tab.chat" @click=""><i class="fas fa-cog"></i></div>
         <div @click="$emit('closeWidget')"><i class="fas fa-times"></i></div>
       </div>
       <div v-if="tab.overview">
+        <h3>CHAT LIST</h3>
+        <p>{{ status }}</p>
+        <div v-for="[chatid, chat] of chat.list" class="clickable" @click="openChat(chatid)">
+          {{ chatid }}
+          {{ chat.name }}
+        </div>
+      </div>
+      <div v-if="tab.chat">
         <h3>CHAT</h3>
+        <p>{{ chat.current }}</p>
       </div>
       <div v-if="tab.newChat">
         <h3>NEW CHAT</h3>
@@ -27,6 +37,7 @@
         <button @click="joinChat">JOIN</button>
         <p>{{ status }}</p>
       </div>
+
     </div>
   </div>
 </div>
@@ -39,8 +50,6 @@ import _ from 'lodash'
 export default {
   name: 'Time',
   components: {
-  },
-  mounted() {
   },
   data () {
     return {
@@ -57,6 +66,10 @@ export default {
       newChat: {
         link: null,
       },
+      chat: {
+        list: new Map(), // ES6 Map
+        current: null
+      },
       status: ''
     }
   },
@@ -64,10 +77,15 @@ export default {
     open: Boolean,
     chatInvite: String
   },
+  mounted() {
+    document.body.addEventListener('userSet', () => {
+      this.initialize()
+    })
+  },
   watch: {
     open(newVal, oldVal) {
       // Once user opens the modal, remove hidden
-      if (newVal === true) {
+      if (newVal && this.hidden) {
         this.hidden = false
       }
     },
@@ -83,7 +101,54 @@ export default {
     }
   },
   methods: {
-    createNewChat: fireFuncs().httpsCallable('createNewChat'),
+    submitCreateNewChat: fireFuncs().httpsCallable('createNewChat'),
+    initialize() {
+      let chatList = localStorage.getItem('chatList')
+      if (chatList) {
+        // We already have chat list stored in memory
+        this.chat.list = new Map(JSON.parse(chatList))
+        console.log(chatList)
+      } else {
+        // Get list of user's chats
+        let userChats = {}
+        fireStore().doc('userProfiles/' + this.$store.state.user.uid).get()
+        .then((docSnap) => {
+          // Take array of chat IDs
+          userChats = Object.keys(docSnap.data().chats)
+
+
+          // Because firebase limits 'in' queries to 10 matches each, we have to split the chats into multiple queries
+          // First, create array of promises for each group of 10 chats
+          let queryResults = []
+          let queryPromises = []
+          for (let i = 0; i < userChats.length; i += 10) {
+            queryPromises.push(fireStore().collection('chats').where(fireStore.FieldPath.documentId(), 'in', userChats.slice(i, i + 10)).get())
+          }
+          // Run the promises
+          Promise.all(queryPromises)
+          .then((querySnaps) => {
+            // Add each query snapshot to results array
+            for (const querySnap of querySnaps) {
+              queryResults.push(querySnap.docs)
+            }
+            // Flatten the array of arrays into an array of QueryDocumentSnapshots
+            queryResults = queryResults.flat()
+
+            // Add the results to the chat list
+            for (const queryDocSnap of queryResults) {
+              this.chat.list.set(queryDocSnap.id, queryDocSnap.data())
+            }
+            this.localSaveChat()
+          })
+          .catch((err) => {
+            this.status = 'UNABLE TO GET CHAT DATA: ' + err
+          })
+        })
+        .catch((err) => {
+          this.status = 'UNABLE TO GET CHAT LIST: ' + err
+        })
+      }
+    },
     switchTab(tab) {
       this.tab[this.currentTab] = false
       this.tab[tab] = true
@@ -92,30 +157,26 @@ export default {
 
       switch (tab) {
         case 'newChat':
-          // Create new chat
-          let newChatId
-          this.createNewChat({})
-          .then(({ data }) => {
-            newChatId = data.chatId
-            // Add user to chat
-            return fireStore().doc(`/chats/${newChatId}/users/${this.$store.state.user.uid}`).set({
-              owner: true
-            })
-          })
-          .then(() => {
-            // Add chat to user chats
-            const chatsObject = {}
-            chatsObject[newChatId] = { visible: true }
-            return this.$store.dispatch('updateProfile', { chats: chatsObject })
-          })
-          .then(() => {
-            // Finally, display chat link
-            this.newChat.link = 'silicon-dashboard.netlify.app/chat-invite?chat_id=' + newChatId
-          })
-          .catch((err) => {
-            this.newChat.link = 'UNABLE TO CREATE NEW CHAT: ERROR: ' + err
-          })
+          this.createNewChat()
+          break
+        case 'chat':
+          if (!this.chat.current) this.switchTab('overview')
       }
+    },
+    openChat(id) {
+      this.chat.current = id
+      this.switchTab('chat')
+    },
+    localSaveChat() {
+      // Create a new map with only the information we need to save
+      let saveChatList = new Map(this.chat.list)
+      saveChatList.forEach((chat, chatid, map) => {
+        map.set(chatid, {
+          name: chat.name
+        })
+      })
+      // Save JSON stringified map to local storage
+      localStorage.setItem('chatList', JSON.stringify(Array.from(saveChatList.entries())))
     },
     copyToCb(text) {
       navigator.clipboard.writeText(text)
@@ -125,13 +186,49 @@ export default {
         this.status = 'Unable to copy to clipboard.'
       })
     },
-    joinChat() {
-      this.status = 'PLEASE WAIT...'
-      fireStore().doc(`/chats/${this.chatInvite}/pendingUsers/${this.$store.state.user.uid}`).set({
-        pending: true
+    createNewChat() {
+      // Create new chat
+      let newChatId
+      this.submitCreateNewChat({})
+      .then(({ data }) => {
+        newChatId = data.chatId
+        // Add user to chat
+        return fireStore().doc(`/chats/${newChatId}/users/${this.$store.state.user.uid}`).set({
+          owner: true
+        })
       })
       .then(() => {
-        this.status = 'DONE. YOU WILL BE ABLE TO ACCESS THE CHAT ONCE THE OWNER ADMITS YOU'
+        // Add chat to user chats
+        const chatsObject = {}
+        chatsObject[newChatId] = { visible: true }
+        return this.$store.dispatch('updateProfile', { chats: chatsObject })
+      })
+      .then(() => {
+        // Finally, display chat link
+        this.newChat.link = 'silicon-dashboard.netlify.app/chat-invite?chat_id=' + newChatId
+      })
+      .catch((err) => {
+        this.newChat.link = 'UNABLE TO CREATE NEW CHAT: ERROR: ' + err
+      })
+    },
+    joinChat() {
+      this.status = 'PLEASE WAIT...'
+      fireStore().doc(`/chats/${this.chatInvite}/users/${this.$store.state.user.uid}`).set({
+        name: this.$store.state.userData.name
+      })
+      .then(() => {
+        // Add chat to user
+        const chatsObject = {}
+        chatsObject[this.chatInvite] = { visible: true }
+        this.$store.dispatch('updateProfile', { chats: chatsObject })
+        this.chat.list.set(this.chatInvite, {
+          name: 'chatname' // TODO Fetch chat info
+        })
+        this.localSaveChat()
+
+        // Set chat and switch to chat tab
+        this.chat.current = this.chatInvite
+        this.switchTab('chat')
       })
       .catch((err) => {
         this.status = 'UNABLE TO JOIN - EITHER THE CHAT DOES NOT EXIST OR YOU HAVE BEEN BLOCKED.'

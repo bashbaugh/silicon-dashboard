@@ -45,6 +45,7 @@ export default new Vuex.Store({
     logOut(ctx) {
       if (!ctx.state.loggedIn) return
       // Vue.$playSound('whir_1')
+      localStorage.clear() // Clear local storage for security purposes
       ctx.commit('CLEAR_USER')
       fireAuth().signOut()
     },
@@ -69,6 +70,8 @@ export default new Vuex.Store({
 
           // Copy settings from profile and default
           ctx.commit('SET_SETTINGS', defaultSettings)
+          // Emit userSet event
+          document.body.dispatchEvent(new Event('userSet'))
           resolve()
         })
         .catch((err) => {
