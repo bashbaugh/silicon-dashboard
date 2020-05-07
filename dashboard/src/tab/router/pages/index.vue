@@ -44,6 +44,8 @@ export default {
     // Check for chat and project invitations
     const url = new URL(window.location.href)
     this.chatInvite = url.searchParams.get('chat_invite')
+
+    window.history.replaceState(null, null, '/')
     if (this.chatInvite) {
       this.currentWidgetOpen = 'chat'
     }

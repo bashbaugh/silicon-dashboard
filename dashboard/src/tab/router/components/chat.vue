@@ -7,20 +7,25 @@
         <div v-if="tab.overview || tab.newChat" @click="switchTab('newChat')" :class="{ 'active': tab.newChat }"><i class="fas fa-plus"></i></div>
         <div v-if="tab.chat" @click=""><i class="fas fa-user-plus"></i></div>
          <div v-if="tab.chat" @click=""><i class="fas fa-users"></i></div>
-        <div v-if="tab.chat" @click=""><i class="fas fa-cog"></i></div>
+        <div v-if="tab.chat" @click="switchTab('chatSettings')"><i class="fas fa-cog"></i></div>
         <div @click="$emit('closeWidget')"><i class="fas fa-times"></i></div>
       </div>
       <div v-if="tab.overview">
         <h3>CHAT LIST</h3>
         <p>{{ status }}</p>
-        <div v-for="[chatid, chat] of chat.list" class="clickable" @click="openChat(chatid)">
-          {{ chatid }}
-          {{ chat.name }}
+        <div class="chat" v-for="[chatid, chat] of chat.list">
+          <span class="clickable" @click="openChat(chatid)">{{ chatid }}</span>
+          <span class="clickable chat-button" @click="openChat(chatid)">&gt;</span>
+          <span class="clickable chat-button" @click="openChat(chatid, 'settings')"><i class="fas fa-ellipsis-v"></i></span>
         </div>
       </div>
       <div v-if="tab.chat">
         <h3>CHAT</h3>
         <p>{{ chat.current }}</p>
+      </div>
+      <div v-if="tab.chatSettings">
+        <h3>SETTINGS</h3>
+        settings for chat {{ chat.current }}
       </div>
       <div v-if="tab.newChat">
         <h3>NEW CHAT</h3>
@@ -62,6 +67,7 @@ export default {
         joinChat: false,
         addUser: false,
         viewUsers: false,
+        chatSettings: false
       },
       newChat: {
         link: null,
@@ -78,6 +84,7 @@ export default {
     chatInvite: String
   },
   mounted() {
+    if (this.$store.state.user) this.initialize()
     document.body.addEventListener('userSet', () => {
       this.initialize()
     })
@@ -115,7 +122,6 @@ export default {
         .then((docSnap) => {
           // Take array of chat IDs
           userChats = Object.keys(docSnap.data().chats)
-
 
           // Because firebase limits 'in' queries to 10 matches each, we have to split the chats into multiple queries
           // First, create array of promises for each group of 10 chats
@@ -163,9 +169,10 @@ export default {
           if (!this.chat.current) this.switchTab('overview')
       }
     },
-    openChat(id) {
+    openChat(id, page) {
       this.chat.current = id
       this.switchTab('chat')
+      if (page === 'settings') this.switchTab('chatSettings')
     },
     localSaveChat() {
       // Create a new map with only the information we need to save
@@ -254,5 +261,19 @@ export default {
   }
   div[data-theme='light'] .tabs {
     border-left: 1px solid white;
+  }
+  .chat {
+    padding: 15px;
+    text-align: left;
+  }
+  div[data-theme='light'] .chat {
+    border-bottom: 1px  solid white;
+  }
+  div[data-theme='dark'] .chat {
+    border-bottom: 1px solid black;
+  }
+  .chat .chat-button {
+    float: right;
+    padding: 0px 12px;
   }
 </style>

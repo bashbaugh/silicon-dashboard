@@ -11,4 +11,4 @@ chrome.webRequest.onBeforeRequest.addListener((details) => {
   urls: [
     `*://silicon-dashboard.netlify.app/chat-invite?*`
   ]
-}, ['blocking'])
+}, ['blocking'])4
