@@ -17,6 +17,7 @@
             :disabled="inputDisabled" >
       </div>
       <div :class="['large-input-status', inputStatusWarning ? 'red' : 'green']">CURRENT STATUS: &nbsp; AUTH://<span class="typer-span" ref="statusRef" id="statusRef"></span></div>
+      <div class="large-input-status" v-if="currentStep === 2 || currentStep === 1">BY CONTINUING TO USE THIS EXTENSION, YOU ACKNOWLEDGE YOUR AGREEMENT TO OUR <a :href="privacyPolicyUrl" target="_blank">PRIVACY POLICY</a></div>
     </div>
   </div>
 </template>
@@ -25,6 +26,7 @@
 import typer from 'typer-js'
 import TopBar from '../components/top'
 import { fireAuth } from '../../firebase_exports'
+import cfg from '../../../appconfig'
 
 function initialData() {
   return {
@@ -40,7 +42,9 @@ function initialData() {
     userEmail: '',
     userName: '',
 
-    typerQueueLength: 0
+    typerQueueLength: 0,
+
+    privacyPolicyUrl: cfg.privacyPolicy
   }
 }
 

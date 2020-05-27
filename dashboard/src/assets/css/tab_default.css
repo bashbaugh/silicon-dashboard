@@ -64,6 +64,7 @@ div.content {
 
 .large-input-status {
   cursor: default;
+  margin-bottom: 20px;
   font-family: 'Raleway', sans-serif;
   font-size: 1.2em;
   font-weight: 600;
@@ -86,6 +87,11 @@ input[type=text]:focus {
 }
 
 /* Buttons */
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .function-button {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.3em;
@@ -131,11 +137,6 @@ div[data-theme='light'] button {
   background: rgba(97, 175, 255, 0.6);
   border: 3px solid #0040ac;
 }
-
-/*a {*/
-/*  color: inherit;*/
-/*  text-decoration: inherit;*/
-/*}*/
 
 /* Widgets */
 

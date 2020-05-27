@@ -29,6 +29,7 @@
 import TopBar from '../components/top'
 import Time from '../components/time'
 import Chat from '../components/chat'
+import cfg from '../../../appconfig'
 
 export default {
   name: 'App',
@@ -45,7 +46,7 @@ export default {
     const url = new URL(window.location.href)
     this.chatInvite = url.searchParams.get('chat_invite')
 
-    window.history.replaceState(null, null, '/')
+    window.history.replaceState(null, null, cfg.tabPath)
     if (this.chatInvite) {
       this.currentWidgetOpen = 'chat'
     }

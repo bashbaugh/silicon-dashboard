@@ -10,7 +10,7 @@ const config = {
   mode: process.env.NODE_ENV,
   context: __dirname + '/src',
   entry: {
-    'background': './background.js',
+    'background/index': './background/index.js',
     'popup/popup': './popup/popup.js',
     'tab/tab': './tab/tab.js'
   },
@@ -57,8 +57,8 @@ const config = {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]',
-          outputPath: '/fonts/',
+          name: '[path][name].[ext]',
+          // outputPath: '/fonts/',
           emitFile: false,
         },
       },
@@ -77,6 +77,7 @@ const config = {
       { from: 'assets', to: 'assets', ignore: [] },
       { from: 'popup/popup.html', to: 'popup/popup.html', transform: transformHtml },
       { from: 'tab/tab.html', to: 'tab/tab.html', transform: transformHtml },
+      { from: 'appconfig.js', to: 'appconfig.js' },
       {
         from: 'manifest.json',
         to: 'manifest.json',

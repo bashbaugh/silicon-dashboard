@@ -3,10 +3,16 @@ import Vue from 'vue'
 import _ from 'lodash/core'
 import { fireAuth, fireStore } from '../firebase_exports'
 import defaultSettings from '../default_settings'
+import chatModule from './chat'
+import projectsModule from './projects'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    chat: chatModule,
+    projects: projectsModule
+  },
   state: {
     loggedIn: false,
     user: null,

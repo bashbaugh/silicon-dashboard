@@ -23,6 +23,8 @@ export default {
     }
   },
   mounted() {
+    if (window.location.hash === '#/updated') return // Ignore auth on install/update page
+
     // Create auth listener to update app on sign in/out
     fireAuth().onAuthStateChanged((user) => {
       if (user) {

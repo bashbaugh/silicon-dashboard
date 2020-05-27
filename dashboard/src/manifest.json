@@ -9,8 +9,10 @@
   },
   "permissions": [
     "tabs",
+    "topSites",
     "webRequest",
     "webRequestBlocking",
+    "clipboardWrite",
     "*://silicon-dashboard.netlify.app/*",
     "https://us-central1-silicon-dashboard.cloudfunctions.net/*",
     "*://kit.fontawesome.com/*"
@@ -21,8 +23,9 @@
   },
   "background": {
     "scripts": [
-      "background.js"
-    ]
+      "background/index.js"
+    ],
+    "persistent": true
   },
   "chrome_url_overrides": {
     "newtab": "tab/tab.html"
