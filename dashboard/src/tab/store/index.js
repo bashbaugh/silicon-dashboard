@@ -1,10 +1,11 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import _ from 'lodash/core'
-import { fireAuth, fireStore } from '../firebase_exports'
 import defaultSettings from '../default_settings'
 import chatModule from './chat'
 import projectsModule from './projects'
+
+const { fireAuth, fireStore } = chrome.extension.getBackgroundPage().firebase;
 
 Vue.use(Vuex)
 

@@ -20,4 +20,4 @@ const fireAuth = firebase.auth
 const fireFuncs = firebase.functions
 const fireStore = firebase.firestore
 
-export { fireAuth, fireFuncs, fireStore }
+export default { fireAuth, fireFuncs, fireStore }

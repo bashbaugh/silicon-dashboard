@@ -14,8 +14,7 @@
     "webRequestBlocking",
     "clipboardWrite",
     "*://silicon-dashboard.netlify.app/*",
-    "https://us-central1-silicon-dashboard.cloudfunctions.net/*",
-    "*://kit.fontawesome.com/*"
+    "https://us-central1-silicon-dashboard.cloudfunctions.net/*"
   ],
   "browser_action": {
     "default_title": "Silicon Dashboard",

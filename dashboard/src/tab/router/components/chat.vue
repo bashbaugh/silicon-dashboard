@@ -49,8 +49,9 @@
 </template>
 
 <script>
-import { fireFuncs, fireStore } from '../../firebase_exports'
 import _ from 'lodash'
+
+const { fireFuncs, fireStore } = chrome.extension.getBackgroundPage().firebase
 
 export default {
   name: 'Time',

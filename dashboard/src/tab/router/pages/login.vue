@@ -25,8 +25,9 @@
 <script>
 import typer from 'typer-js'
 import TopBar from '../components/top'
-import { fireAuth } from '../../firebase_exports'
 import cfg from '../../../appconfig'
+
+const { fireAuth } = chrome.extension.getBackgroundPage().firebase
 
 function initialData() {
   return {

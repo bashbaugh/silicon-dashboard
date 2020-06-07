@@ -5,7 +5,7 @@
       <p class="large-input-status"><a :href="changelog">CLICK HERE</a> TO VIEW THE CHANGE LOG</p>
     </div>
     <div class="center" v-if="pageReason === 'install'">
-      <div class="large-input-prompt">SILICON DASHBOARD HAS BEEN INSTALLED</div>
+      <div class="large-input-prompt">THANK YOU FOR INSTALLING SILICON DASHBOARD</div>
       <p class="large-input-status">OPEN A NEW TAB TO GET STARTED</p>
     </div>
   </div>
