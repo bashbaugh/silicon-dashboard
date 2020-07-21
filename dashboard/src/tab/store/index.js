@@ -5,7 +5,7 @@ import defaultSettings from '../default_settings'
 import chatModule from './chat'
 import projectsModule from './projects'
 
-const { fireAuth, fireStore } = chrome.extension.getBackgroundPage().firebase;
+import { fireAuth, fireStore } from '../firebase_exports'
 
 Vue.use(Vuex)
 

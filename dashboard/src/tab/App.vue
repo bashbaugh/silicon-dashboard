@@ -9,7 +9,7 @@ import Vue from 'vue'
 import GlobalEvents from 'vue-global-events'
 import customActions from './plugins/actions'
 
-const { fireAuth } = chrome.extension.getBackgroundPage().firebase
+import { fireAuth } from './firebase_exports'
 
 // Register global events component
 Vue.component('GlobalEvents', GlobalEvents)

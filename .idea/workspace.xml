@@ -20,21 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20ec571f-6a2d-4680-a22d-80e06d234bb0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/src/appconfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/appconfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/src/background/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/background/firebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/src/background/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/background/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/src/background/listeners.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/background/listeners.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/src/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/src/tab/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/tab/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/src/tab/firebase_exports.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/src/tab/router/components/chat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/tab/router/components/chat.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/src/tab/router/pages/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/tab/router/pages/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/src/tab/router/pages/updated.vue" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/tab/router/pages/updated.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/src/tab/store/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/tab/store/chat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/src/tab/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/tab/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fb_functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fb_functions/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +63,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -179,15 +171,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="722" y="245" width="475" height="623" key="#CSS" timestamp="1587089220996">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="722" y="245" width="475" height="623" key="#CSS/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1587089220996" />
-    <state x="377" y="199" width="864" height="835" key="#HTML" timestamp="1587077387659">
+    <state x="377" y="199" width="864" height="835" key="#HTML" timestamp="1595362604301">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="377" y="199" key="#HTML/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1595362604301" />
     <state x="377" y="199" width="864" height="835" key="#HTML/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1587077387659" />
     <state x="793" y="409" width="324" height="295" key="#Other_File_Types" timestamp="1587147852828">
       <screen x="0" y="27" width="1920" height="1053" />
@@ -209,25 +203,25 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="892" y="342" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1588821943130" />
-    <state width="1899" height="277" key="GridCell.Tab.0.bottom" timestamp="1591508346933">
+    <state width="1899" height="203" key="GridCell.Tab.0.bottom" timestamp="1595362462802">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1899" height="277" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1591508346933" />
+    <state width="1899" height="203" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1595362462802" />
     <state width="1899" height="158" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1591146365011" />
-    <state width="1899" height="277" key="GridCell.Tab.0.center" timestamp="1591508346933">
+    <state width="1899" height="203" key="GridCell.Tab.0.center" timestamp="1595362462801">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1899" height="277" key="GridCell.Tab.0.center/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1591508346933" />
+    <state width="1899" height="203" key="GridCell.Tab.0.center/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1595362462801" />
     <state width="1899" height="158" key="GridCell.Tab.0.center/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1591146365011" />
-    <state width="1899" height="277" key="GridCell.Tab.0.left" timestamp="1591508346933">
+    <state width="1899" height="203" key="GridCell.Tab.0.left" timestamp="1595362462801">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1899" height="277" key="GridCell.Tab.0.left/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1591508346933" />
+    <state width="1899" height="203" key="GridCell.Tab.0.left/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1595362462801" />
     <state width="1899" height="158" key="GridCell.Tab.0.left/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1591146365011" />
-    <state width="1899" height="277" key="GridCell.Tab.0.right" timestamp="1591508346933">
+    <state width="1899" height="203" key="GridCell.Tab.0.right" timestamp="1595362462801">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1899" height="277" key="GridCell.Tab.0.right/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1591508346933" />
+    <state width="1899" height="203" key="GridCell.Tab.0.right/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1595362462801" />
     <state width="1899" height="158" key="GridCell.Tab.0.right/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1591146365011" />
     <state width="1899" height="342" key="GridCell.Tab.1.bottom" timestamp="1587530286000">
       <screen x="0" y="27" width="1920" height="1053" />
@@ -277,9 +271,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1899" height="342" key="GridCell.Tab.3.right/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1587530286000" />
-    <state x="464" y="188" width="992" height="737" key="SettingsEditor" timestamp="1587058885595">
+    <state x="464" y="188" width="992" height="737" key="SettingsEditor" timestamp="1595362670826">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="464" y="188" key="SettingsEditor/0.27.1920.1053/1920.145.1024.768@0.27.1920.1053" timestamp="1595362670826" />
     <state x="464" y="188" width="992" height="737" key="SettingsEditor/0.27.1920.1053/1920.211.1024.768@0.27.1920.1053" timestamp="1587058885595" />
     <state x="952" y="301" width="581" height="508" key="find.popup" timestamp="1587156309242">
       <screen x="0" y="27" width="1920" height="1053" />
